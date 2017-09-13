@@ -1,16 +1,22 @@
 version: "3"
 services:
   front:
-    image: 127.0.0.1:5000/demo/front:1.0
+    image: zbbfufu/swarm-demo-front:1.0
     build: ./front
     ports:
-      - 3000:3000
+      - 80:3000
     depends_on:
       - back
+    deploy:
+      replicas: 1
   back:
-    image: 127.0.0.1:5000/demo/back:1.0
+    image: zbbfufu/swarm-demo-back:1.0
     build: ./back
     depends_on:
       - redis
+    deploy:
+      replicas: 1
   redis:
     image: redis:4.0-alpine
+    deploy:
+      replicas: 1
