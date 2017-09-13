@@ -1,21 +1,28 @@
 version: "3"
 services:
+  webui:
+    image: zbbfufu/swarm-demo-webui:1.0
+    build: ./webui
+    ports:
+      - 80:80
+    depends_on:
+      - front
+    deploy:
+      replicas: 1
   front:
     image: zbbfufu/swarm-demo-front:1.0
     build: ./front
-    ports:
-      - 80:3000
     depends_on:
       - back
     deploy:
-      replicas: 1
+      replicas: 3
   back:
     image: zbbfufu/swarm-demo-back:1.0
     build: ./back
     depends_on:
       - redis
     deploy:
-      replicas: 1
+      replicas: 5
   redis:
     image: redis:4.0-alpine
     deploy:
